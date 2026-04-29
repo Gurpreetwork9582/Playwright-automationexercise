@@ -3,5 +3,5 @@ import pytest
 
 @pytest.fixture(autouse=True)
 def open_url(page:Page):
-    page.goto('http://automationexercise.com')
+    page.goto('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
     yield
