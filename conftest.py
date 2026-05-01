@@ -1,8 +1,9 @@
 from playwright.sync_api import Page
 import pytest
+from pages.login_page import Login
 
 
-@pytest.fixture(autouse=True)
-def open_url(page:Page):
-    page.goto('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
-    yield
+@pytest.fixture()
+def login(page:Page):
+    return Login(page)
+
