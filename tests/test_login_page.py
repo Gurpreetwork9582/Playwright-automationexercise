@@ -1,8 +1,3 @@
-from playwright.sync_api import expect, Page
-import re
-import requests
-import pytest
-
 
 def test_login(login):
     print(type(login))
