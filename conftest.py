@@ -33,8 +33,16 @@ def claim(page)->Claim:
 '''
 
 @pytest.fixture(scope="session")
-def page(browser):
-    context=browser.new_context(storage_state="auth.json")
-    return context.new_page()
+def context(browser):
+    return browser.new_context(storage_state="auth.json")
 
 
+@pytest.fixture
+def page(context):
+    page = context.new_page()
+    yield page
+    page.close()
+
+@pytest.fixture(autouse=True)
+def open_dashboard(page):
+    page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index")

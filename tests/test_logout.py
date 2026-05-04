@@ -9,7 +9,7 @@ def test_logout(page:Page):
     dashboard = page.get_by_role("heading", name="Dashboard")
     expect(dashboard).to_be_visible()
 
-    page.get_by_alt_text("profile picture").click()
+    page.get_by_role("banner").get_by_role("img", name="profile picture").click()
     page.get_by_role("menuitem", name="Logout").click()
 
     expect(page.get_by_role("heading", name="Login")).to_be_visible()
