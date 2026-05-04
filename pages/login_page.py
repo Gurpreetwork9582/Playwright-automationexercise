@@ -13,7 +13,7 @@ class Login():
         self.page.goto(self.base_url)
 
     def Login_user(self):
-        self.username.fill("Admin")
+        self.username.fill("Guri9582")
         self.password.fill('admin123')
         self.login_button.click()
 
