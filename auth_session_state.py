@@ -1,17 +1,26 @@
+import os
+
 from playwright.sync_api import sync_playwright
+
+
+LOGIN_URL = "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login"
+AUTH_FILE = "auth.json"
+USERNAME = os.getenv("ORANGEHRM_USERNAME", "guri9582")
+PASSWORD = os.getenv("ORANGEHRM_PASSWORD", "admin123")
+
 
 def create_state():
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=False)
         page = browser.new_page()
-        
-        page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index")
-        page.get_by_placeholder('username').fill("Guri9582")
-        page.get_by_placeholder('Password').fill("admin123")
+
+        page.goto(LOGIN_URL)
+        page.get_by_placeholder('Username').fill(USERNAME)
+        page.get_by_placeholder('Password').fill(PASSWORD)
         page.get_by_role("button", name="Login").click()
-        
-        # SAVE LOGIN STATE(as auth.json)
-        page.context.storage_state(path="auth.json")
+        page.get_by_role("heading", name="Dashboard").wait_for()
+
+        page.context.storage_state(path=AUTH_FILE)
         browser.close()
 
 
